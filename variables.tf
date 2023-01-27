@@ -61,7 +61,7 @@ variable "kv_name" {
   type        = string
 }
 
-variable "kv_sku_ame" {
+variable "kv_sku_name" {
   description = "SKU of the keyvault service: standard and premium"
   type        = string
 }
