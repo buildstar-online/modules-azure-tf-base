@@ -54,6 +54,6 @@ resource "azurerm_key_vault_access_policy" "admins" {
   ]
 
   depends_on = [
-    azurerm_key_vault.key_vault.this, azurerm_user_assigned_identity.admin_identity
+    azurerm_key_vault.this, azurerm_user_assigned_identity.admin_identity
   ]
 }
