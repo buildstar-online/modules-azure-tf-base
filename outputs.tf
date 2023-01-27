@@ -1,5 +1,5 @@
 output "kv_id" {
-  value = azurerm_key_vault.key_vault.id
+  value = azurerm_key_vault.this.id
 }
 output "vnet_id" {
   value = azurerm_virtual_network.virtual_network.id
