@@ -37,7 +37,7 @@ locals {
 resource "azurerm_key_vault_access_policy" "admins" {
   count = length(local.all_users)
 
-  key_vault_id = azurerm_key_vault.key_vault.id
+  key_vault_id = azurerm_key_vault.this.id
   tenant_id    = var.tenant_id
   object_id    = local.all_users[count.index]
 
@@ -54,6 +54,6 @@ resource "azurerm_key_vault_access_policy" "admins" {
   ]
 
   depends_on = [
-    azurerm_key_vault.key_vault, azurerm_user_assigned_identity.admin_identity
+    azurerm_key_vault.key_vault.this, azurerm_user_assigned_identity.admin_identity
   ]
 }
