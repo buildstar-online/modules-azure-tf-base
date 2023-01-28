@@ -1,21 +1,149 @@
 # modules-azure-tf-base
 base resources for azure projects via terrform 
 
-- A resource group to hold all the resources for this environment
-- A Managed Identity owned by the terraform runner w/ a randomly generated name
-- An azure application owned by the terraform runner
-- An azure service principal assigned to the application and owned by the terraform runner
-- A container Registry with a randomized name assigned to the managed identity
-- A container registry webhook (currently created but unused)
-- An Azure Key Vault with a random name
-- An azure Key Vault Access Policy for the terraform runner, and managed identity
+- Rsource-Group to hold all the resources for this environment
+- Managed-Identity owned by the terraform runner w/ a randomly generated name
+- An Azure Application owned by the Terraform runner
+- An Azure Service-Principal assigned to the Azure Application and owned by the Terraform runner
+- A Container-Registry with a randomized name assigned to a Managed Identity
+- A Container-Registry Webhook (currently created but unused)
+- An Azure Key-Vault with a random name
+- An azure Key-Vault Access Policy for the Terraform runner, and Managed Identity
 - An Azure Storage Account 
-- An azure blob container
+- An Azure Blob container
 - Azure SAS urls (move to app service module)
 - A rotating time resource for certificate expiration
-- A top-level virtual network
-- A network security group
+- A top-level Virtual Network
+- A Network Security-Group
 - Inbound and Outbound security rules
+
+## Getting Started
+
+1. Install Azure CLI
+
+   ```bash
+   brew update && \
+   brew install azure-cli
+   ```
+
+2. Install Bitwarden CLI
+
+   ```bash
+   brew install bitwarden-cli
+   ```
+
+3. Login
+
+   ```bash
+   # Authorize the Azure CLI
+   az login
+   ```
+
+4. Create your service principle
+
+  - Create a service account to represent your digital self and use that to run terraform locally.
+
+  - In production, a unique service account should be created for running and applying the terraform jobs,
+and it should create smaller accounts at instantiation to run the infra it provisions.
+
+  - 'Owner' level access is required because we need to create role assignments. This may potentially be
+scoped down to 'User Access Administrator' + 'Contributor'
+
+      ```bash
+      SUBSCRIPTION=$(az account show --query id --output tsv)
+      SP_NAME="myserviceaccount"
+
+      az ad sp create-for-rbac --sdk-auth \
+        --display-name="${SP_NAME}" \
+        --role="Owner" \
+        --scopes="/subscriptions/$SUBSCRIPTION"
+      ```
+
+  - Add the resulting data to KeePassXC / Bitwarden for now. You will need it again multiple times.
+
+___
+
+
+5. Set Azure Active Directory Permissions
+
+This is required in order to set AD roles in terraform.
+
+  - Login to https://portal.azure.com/
+  - Navigate to `Azure Active Directory`
+  - Select `Roles and administrators` from the left-side menu
+  - Click `Application administrator`
+  - Click `Add Assignments`
+  - Search for your service accounts name
+  - Repeat for `Application Developer` Role.
+
+___
+
+6. Log-in as the service principle or user.
+
+- we will use this account to create the terraform state bucket.
+
+```bash
+  az login --service-principal \
+    --username $(bw get item lab-admin-robot |jq -r '.fields[] |select(.name=="clientId") |.value') \
+    --password $(bw get item lab-admin-robot |jq -r '.fields[] |select(.name=="clientSecret") |.value') \
+    --tenant $(bw get item lab-admin-robot |jq -r '.fields[] |select(.name=="tenantId") |.value')
+```
+
+____
+
+7. Create the Terraform state bucket
+
+  - All Azure Storage Accounts are encrypted by default using Microsoft Managed Keys
+    ```bash
+    export SUBSCRIPTION=$(az account show --query id --output ts    export KIND="StorageV2"
+    export LOCATION="westeurope"
+    export RG_NAME="ampowr-tf-state"
+    export STORAGE_NAME="ampowrtfstatebucket"
+    export STORAGE_SKU="Standard_RAGRS"
+    export CONTAINER_NAME="ampowrtfstate"
+
+    az group create \
+      -l="${LOCATION}" \
+      -n="${RG_NAME}"
+
+    az storage account create \
+      --name="${STORAGE_NAME}" \
+      --resource-group="${RG_NAME}" \
+      --location="${LOCATION}" \
+      --sku="${STORAGE_SKU}" \
+      --kind="${KIND}"
+
+    az storage account encryption-scope create \
+      --account-name="${STORAGE_NAME}"  \
+      --key-source Microsoft.Storage \
+      --name="tfencryption"\
+      --resource-group="${RG_NAME}" \
+      --subscription="${SUBSCRIPTION}"
+
+    az storage container create \
+        --name="${CONTAINER_NAME}" \
+        --account-name="${STORAGE_NAME}" \
+        --resource-group="${RG_NAME}" \
+        --default-encryption-scope="tfencryption" \
+        --prevent-encryption-scope-override="true" \
+        --auth-mode="login" \
+        --fail-on-exist \
+        --public-access="off"
+    ```
+___
+
+8. Run terraform
+
+```bash
+docker run --platform linux/amd64 -it \
+-e ARM_CLIENT_ID=$(bw get item lab-admin-robot |jq -r '.fields[] |select(.name=="clientId") |.value') \
+-e ARM_CLIENT_SECRET=$(bw get item lab-admin-robot |jq -r '.fields[] |select(.name=="clientSecret") |.value') \
+-e ARM_SUBSCRIPTION_ID=$(bw get item lab-admin-robot |jq -r '.fields[] |select(.name=="subscriptionId") |.value') \
+-e ARM_TENANT_ID=$(bw get item lab-admin-robot |jq -r '.fields[] |select(.name=="tenantId") |.value') \
+-v $(pwd):/terraform -w /terraform \
+hashicorp/terraform init
+```
+
 
 ## Usage
 
