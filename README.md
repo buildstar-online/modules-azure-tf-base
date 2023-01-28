@@ -97,10 +97,10 @@ ____
     ```bash
     export SUBSCRIPTION=$(az account show --query id --output ts    export KIND="StorageV2"
     export LOCATION="westeurope"
-    export RG_NAME="ampowr-tf-state"
-    export STORAGE_NAME="ampowrtfstatebucket"
+    export RG_NAME="example-tf-state"
+    export STORAGE_NAME="examplertfstatebucket"
     export STORAGE_SKU="Standard_RAGRS"
-    export CONTAINER_NAME="ampowrtfstate"
+    export CONTAINER_NAME="exampletfstate"
 
     az group create \
       -l="${LOCATION}" \
