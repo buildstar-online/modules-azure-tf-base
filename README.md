@@ -95,7 +95,7 @@ ____
 
   - All Azure Storage Accounts are encrypted by default using Microsoft Managed Keys
     ```bash
-    export SUBSCRIPTION=$(az account show --query id --output ts    export KIND="StorageV2"
+    export SUBSCRIPTION=$(az account show --query id --output ts    export KIND="StorageV2")
     export LOCATION="westeurope"
     export RG_NAME="example-tf-state"
     export STORAGE_NAME="examplertfstatebucket"
