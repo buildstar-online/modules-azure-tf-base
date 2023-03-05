@@ -149,40 +149,47 @@ hashicorp/terraform init
 ## Usage
 
 ```hcl
+data "azurerm_client_config" "current" {
+}
+
 module "environment-base" {
 
   source = "github.com/cloudymax/modules-azure-tf-base"
-  
+
   # Project settings
-  environment      = each.value
-  location         = var.location
-  resource_group   = "${var.resource_group}-${each.value}"
+  environment      = "demo"
+  location         = "westeurope"
+  resource_group   = "demo-rg"
   subscription_id  = data.azurerm_client_config.current.subscription_id
   tenant_id        = data.azurerm_client_config.current.tenant_id
   runner_object_id = data.azurerm_client_config.current.object_id
 
   # Identities
-  admin_identity = "${each.value}-identity"
+  admin_identity = "admin-identity"
 
   # Virtual Network
-  vnet_name          = var.vnet_name
-  vnet_address_space = var.vnet_address_space
-  vnet_subnet_name   = var.vnet_subnet_name
+  vnet_name          = "demo-net"
+  vnet_address_space = ["10.0.0.0/16"]
+  vnet_subnet_name   = "demo-subnet"
   subnet_prefixes    = ["10.0.1.0/16"]
 
   # Container Registry
-  cr_name = var.cr_name
-  cr_sku  = var.cr_sku[each.key]
+  cr_name = "demo-registry"
+  cr_sku  = "basic"
 
   # Storage
-  storage_acct_name        = var.storage_acct_name
-  account_tier             = var.account_tier[each.key]
-  account_replication_type = var.account_replication_type
-  log_storage_tier         = var.log_storage_tier
+  storage_acct_name        = "demo-bucket"
+  account_tier             = "Standard"
+  account_replication_type = "LBS"
+  log_storage_tier         = "Hot"
 
   #KeyVault
-  kv_name    = "${each.value}-${var.kv_name}"
-  kv_sku_ame = var.kv_sku_name[each.key]
+  kv_name    = "demo-kv"
+  kv_sku_ame = "standard"
+
+  # Firewall
+  allowed_ips = ["77.249.236.43"]
+  admin_users = ["e462aca6-6121-41cf-83f7-49bad9a9d0f6"]
 }
 ```
 
