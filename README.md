@@ -46,21 +46,22 @@ module "environment-base" {
 
   # Container Registry
   cr_name = "demo-registry"
-  cr_sku  = "basic"
+  cr_sku  = "Basic"
+  public_network_access_enabled = true
 
   # Storage
-  storage_acct_name        = "demo-bucket"
+  storage_acct_name        = "demobucket"
   account_tier             = "Standard"
-  account_replication_type = "LBS"
+  account_replication_type = "LRS"
   log_storage_tier         = "Hot"
 
   #KeyVault
   kv_name    = "demo-kv"
-  kv_sku_ame = "standard"
+  kv_sku_name = "standard"
 
   # Firewall
-  allowed_ips = ["77.249.236.43"]
-  admin_users = ["e462aca6-6121-41cf-83f7-49bad9a9d0f6"]
+  allowed_ips = ["some-ip"]
+  admin_users = ["your-client-id"]
 }
 ```
 
