@@ -4,7 +4,7 @@ resource "random_pet" "vault_encryption" {
 }
 
 resource "azurerm_storage_account" "storage_account" {
-  name                      = "${var.environment}${var.storage_acct_name}"
+  name                      = "${var.storage_acct_name}"
   resource_group_name       = azurerm_resource_group.resource_group.name
   location                  = azurerm_resource_group.resource_group.location
   account_tier              = var.account_tier
@@ -35,7 +35,7 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 resource "azurerm_storage_container" "log_container" {
-  name                  = "jumphostlogs"
+  name                  = "logs"
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
 
