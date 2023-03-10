@@ -36,16 +36,6 @@ variable "allowed_ips" {
   type        = list(string)
 }
 
-variable "vnet_subnet_name" {
-  description = "internal subnet name"
-  type        = string
-}
-
-variable "subnet_prefixes" {
-  description = "internal subnet prefixes"
-  type        = list(any)
-}
-
 variable "cr_name" {
   description = "Name for the container registry"
   type        = string
