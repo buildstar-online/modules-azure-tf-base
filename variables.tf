@@ -46,11 +46,6 @@ variable "kv_sku_name" {
   type        = string
 }
 
-variable "storage_acct_name" {
-  description = "Storage account name for the account that will hold out logs/backups"
-  type        = string
-}
-
 variable "account_tier" {
   description = "logging storage account tier: Defines the Tier to use for this storage account. Valid options are Standard and Premium. For BlockBlobStorage and FileStorage accounts only Premium is valid. Changing this forces a new resource to be created."
   type        = string
