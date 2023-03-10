@@ -3,8 +3,13 @@ resource "random_pet" "vault_encryption" {
   separator = "x"
 }
 
+resource "random_pet" "storage_acct" {
+  length    = 2
+  separator = "x"
+}
+
 resource "azurerm_storage_account" "storage_account" {
-  name                      = "${var.storage_acct_name}"
+  name                      = random_pet.storage_acct.id
   resource_group_name       = azurerm_resource_group.resource_group.name
   location                  = azurerm_resource_group.resource_group.location
   account_tier              = var.account_tier
