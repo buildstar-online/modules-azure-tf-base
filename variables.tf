@@ -36,11 +36,6 @@ variable "allowed_ips" {
   type        = list(string)
 }
 
-variable "cr_name" {
-  description = "Name for the container registry"
-  type        = string
-}
-
 variable "cr_sku" {
   description = "SKU for the container registry: Basic, Standard and Premium."
   type        = string
