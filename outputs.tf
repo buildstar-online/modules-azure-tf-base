@@ -38,9 +38,6 @@ output "log_contaier_id" {
 output "conatiner_registry" {
   value = azurerm_container_registry.container_registry
 }
-output "network_security_group" {
-  value = azurerm_network_security_group.netsec_group
-}
 output "container_registry_admin_username" {
   value = azurerm_container_registry.container_registry.admin_username
 }
