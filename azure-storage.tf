@@ -39,7 +39,7 @@ resource "azurerm_storage_account" "storage_account" {
 
 }
 
-resource "azurerm_storage_container" "log_container" {
+resource "azurerm_storage_container" "container" {
   name                  = "logs"
   storage_account_name  = azurerm_storage_account.storage_account.name
   container_access_type = "private"
@@ -57,6 +57,6 @@ resource "azurerm_role_assignment" "contributor" {
   principal_id         = local.all_users[count.index]
   
   depends_on = [
-    azurerm_storage_account.storage_account
+    azurerm_storage_container.container
   ]
 }
