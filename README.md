@@ -1,22 +1,6 @@
 # modules-azure-tf-base
 base resources for azure projects via terrform 
 
-- Rsource-Group to hold all the resources for this environment
-- Managed-Identity owned by the terraform runner w/ a randomly generated name
-- An Azure Application owned by the Terraform runner
-- An Azure Service-Principal assigned to the Azure Application and owned by the Terraform runner
-- A Container-Registry with a randomized name assigned to a Managed Identity
-- A Container-Registry Webhook (currently created but unused)
-- An Azure Key-Vault with a random name
-- An azure Key-Vault Access Policy for the Terraform runner, and Managed Identity
-- An Azure Storage Account 
-- An Azure Blob container
-- Azure SAS urls (move to app service module)
-- A rotating time resource for certificate expiration
-- A top-level Virtual Network
-- A Network Security-Group
-- Inbound and Outbound security rules
-
 ## Usage
 
 ```hcl
