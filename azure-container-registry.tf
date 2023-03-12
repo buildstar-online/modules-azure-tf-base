@@ -45,18 +45,18 @@ resource "azurerm_container_registry_webhook" "webhook" {
 
 resource "azurerm_role_assignment" "pull" {
   count = length(local.all_users)
-
+  name = "AcrPull-${local.all_users[count.index]}"
   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${azurerm_resource_group.resource_group.name}"
-  role_definition_name = "AcrPull-${local.all_users[count.index]}"
+  role_definition_name = "AcrPull"
   principal_id         = local.all_users[count.index]
 
 }
 
 resource "azurerm_role_assignment" "push" {
   count = length(local.all_users)
-
+  name = "AcrPush-${local.all_users[count.index]}"
   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${azurerm_resource_group.resource_group.name}"
-  role_definition_name = "AcrPush-${local.all_users[count.index]}"
+  role_definition_name = "AcrPush"
   principal_id         = local.all_users[count.index]
 
 }
