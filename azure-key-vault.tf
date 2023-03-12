@@ -53,7 +53,4 @@ resource "azurerm_key_vault_access_policy" "admins" {
     "Get", "Delete", "Backup", "List", "Set", "Purge", "Restore", "Recover"
   ]
 
-  depends_on = [
-    azurerm_key_vault.this, azurerm_user_assigned_identity.admin_identity
-  ]
 }
