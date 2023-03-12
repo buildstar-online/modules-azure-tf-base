@@ -29,11 +29,6 @@ resource "azurerm_key_vault" "this" {
   }
 }
 
-locals {
-  generated_users = tolist(["${azurerm_user_assigned_identity.admin_identity.principal_id}", "${var.runner_object_id}"])
-  all_users       = concat(var.admin_users, local.generated_users)
-}
-
 resource "azurerm_key_vault_access_policy" "admins" {
   count = length(local.all_users)
 
