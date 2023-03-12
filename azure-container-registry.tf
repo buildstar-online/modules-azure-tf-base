@@ -4,7 +4,7 @@ resource "random_pet" "container_registry" {
 }
 
 resource "azurerm_container_registry" "container_registry" {
-  name                          = "registry-${random_pet.container_registry.id}"
+  name                          = "registryx${random_pet.container_registry.id}"
   resource_group_name           = azurerm_resource_group.resource_group.name
   location                      = azurerm_resource_group.resource_group.location
   sku                           = var.cr_sku
