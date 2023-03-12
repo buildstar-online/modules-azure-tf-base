@@ -1,11 +1,10 @@
-resource "random_string" "random" {
-  length           = 8
-  special          = false
-  override_special = "!#$%&*()-_=+[]{}<>:?"
+resource "random_pet" "this" {
+  length    = 2
+  separator = "x"
 }
 
 resource "azurerm_container_registry" "container_registry" {
-  name                          = "${var.environment}CR${random_string.random.result}"
+  name                          = "registry-${random_pet.this.id}"
   resource_group_name           = azurerm_resource_group.resource_group.name
   location                      = azurerm_resource_group.resource_group.location
   sku                           = var.cr_sku
@@ -18,10 +17,6 @@ resource "azurerm_container_registry" "container_registry" {
       azurerm_user_assigned_identity.admin_identity.id
     ]
   }
-
-  depends_on = [
-    random_string.random
-  ]
 }
 
 resource "azurerm_container_registry_webhook" "webhook" {
