@@ -54,5 +54,5 @@ resource "azurerm_role_assignment" "contributor" {
   count = length(local.all_users)
   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${azurerm_resource_group.resource_group.name}/providers/Microsoft.Storage/storageAccounts/${azurerm_storage_account.storage_account.name}"
   role_definition_name = "Storage Blob Data Contributor"
-  principal_id         = local.all_users[count.index
+  principal_id         = local.all_users[count.index]
 }
