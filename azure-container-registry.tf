@@ -38,6 +38,7 @@ resource "azurerm_container_registry_webhook" "webhook" {
 }
 
 
+/*
 resource "azurerm_role_assignment" "pull" {
   count = length(local.all_users)
   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${azurerm_resource_group.resource_group.name}/providers/Microsoft.ContainerRegistry/registries/${azurerm_container_registry.container_registry.name}"
@@ -57,4 +58,5 @@ resource "azurerm_role_assignment" "push" {
     azurerm_container_registry.container_registry
   ]
 }
+*/
 
