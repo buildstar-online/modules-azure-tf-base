@@ -47,7 +47,7 @@ resource "azurerm_role_assignment" "pull" {
   count = length(local.all_users)
 
   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${azurerm_resource_group.resource_group.name}"
-  role_definition_name = "AcrPull"
+  role_definition_name = "AcrPull-${local.all_users[count.index]}"
   principal_id         = local.all_users[count.index]
 
 }
@@ -56,7 +56,7 @@ resource "azurerm_role_assignment" "push" {
   count = length(local.all_users)
 
   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${azurerm_resource_group.resource_group.name}"
-  role_definition_name = "AcrPush"
+  role_definition_name = "AcrPush-${local.all_users[count.index]}"
   principal_id         = local.all_users[count.index]
 
 }
