@@ -29,11 +29,11 @@ output "storage_account" {
     primary_blob_connection_string = "${azurerm_storage_account.storage_account.primary_blob_connection_string}"
   }
 }
-output "log_contaier" {
-  value = azurerm_storage_container.log_container
+output "contaier" {
+  value = azurerm_storage_container.container
 }
-output "log_contaier_id" {
-  value = azurerm_storage_container.log_container.id
+output "contaier_id" {
+  value = azurerm_storage_container.container.id
 }
 output "conatiner_registry" {
   value = azurerm_container_registry.container_registry
