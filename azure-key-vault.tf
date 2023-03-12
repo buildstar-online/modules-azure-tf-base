@@ -4,7 +4,7 @@ resource "random_pet" "this" {
 }
 
 resource "azurerm_key_vault" "this" {
-  name                       = random_pet.this.id
+  name                       = "keyvault-${random_pet.this.id}"
   location                   = azurerm_resource_group.resource_group.location
   resource_group_name        = azurerm_resource_group.resource_group.name
   tenant_id                  = azurerm_user_assigned_identity.admin_identity.tenant_id
