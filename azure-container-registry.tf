@@ -43,7 +43,9 @@ resource "azurerm_role_assignment" "pull" {
   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${azurerm_resource_group.resource_group.name}/providers/Microsoft.ContainerRegistry/registries/${azurerm_container_registry.container_registry.name}"
   role_definition_name = "AcrPull"
   principal_id         = local.all_users[count.index]
-
+  depends_on = [
+    azurerm_container_registry.container_registry
+  ]
 }
 
 resource "azurerm_role_assignment" "push" {
@@ -51,6 +53,8 @@ resource "azurerm_role_assignment" "push" {
   scope                = "/subscriptions/${var.subscription_id}/resourceGroups/${azurerm_resource_group.resource_group.name}/providers/Microsoft.ContainerRegistry/registries/${azurerm_container_registry.container_registry.name}"
   role_definition_name = "AcrPush"
   principal_id         = local.all_users[count.index]
-
+  depends_on = [
+    azurerm_container_registry.container_registry
+  ]
 }
 
