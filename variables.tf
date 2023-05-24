@@ -33,7 +33,7 @@ variable "vnet_address_space" {
 
 variable "allowed_ips" {
   description = "addresses allowed to access the infra"
-  type        = string
+  type        = any
 }
 
 variable "cr_sku" {
