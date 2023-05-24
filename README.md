@@ -93,7 +93,7 @@ No modules.
 | <a name="input_account_tier"></a> [account\_tier](#input\_account\_tier) | logging storage account tier: Defines the Tier to use for this storage account. Valid options are Standard and Premium. For BlockBlobStorage and FileStorage accounts only Premium is valid. Changing this forces a new resource to be created. | `string` | n/a | yes |
 | <a name="input_admin_identity"></a> [admin\_identity](#input\_admin\_identity) | Managed Identity created on deployment who will control the app services | `string` | n/a | yes |
 | <a name="input_admin_users"></a> [admin\_users](#input\_admin\_users) | object\_id's for users /groups that will get admin access to things | `list(string)` | n/a | yes |
-| <a name="input_allowed_ips"></a> [allowed\_ips](#input\_allowed\_ips) | addresses allowed to access the infra | `list(string)` | n/a | yes |
+| <a name="input_allowed_ips"></a> [allowed\_ips](#input\_allowed\_ips) | addresses allowed to access the infra | `string` | n/a | yes |
 | <a name="input_cr_sku"></a> [cr\_sku](#input\_cr\_sku) | SKU for the container registry: Basic, Standard and Premium. | `string` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | deployment environment - dev/staging/prod | `string` | `"dev"` | no |
 | <a name="input_kv_sku_name"></a> [kv\_sku\_name](#input\_kv\_sku\_name) | SKU of the keyvault service: standard and premium | `string` | n/a | yes |
