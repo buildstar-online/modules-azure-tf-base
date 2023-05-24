@@ -29,12 +29,17 @@ resource "azurerm_key_vault" "this" {
   }
 }
 
+data "azurerm_client_config" "current" {
+}
+
+
 resource "azurerm_key_vault_access_policy" "admins" {
   count = length(local.all_users)
 
   key_vault_id = azurerm_key_vault.this.id
   tenant_id    = var.tenant_id
-  object_id    = local.all_users[count.index]
+  object_id    = data.azurerm_client_config.current.client_id
+  #object_id    = local.all_users[count.index]
 
   certificate_permissions = [
     "Backup", "Create", "Delete", "DeleteIssuers", "Get", "GetIssuers", "Import", "List", "ListIssuers", "ManageContacts", "ManageIssuers", "Purge", "Recover", "Restore", "SetIssuers", "Update"
