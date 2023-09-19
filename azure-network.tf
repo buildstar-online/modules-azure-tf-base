@@ -25,7 +25,7 @@ resource "azurerm_network_security_rule" "ssh" {
   network_security_group_name = azurerm_network_security_group.security_group.name
 }
 
-resource "azurerm_network_security_rule" "ssh" {
+resource "azurerm_network_security_rule" "https" {
   name                        = "https"
   priority                    = 110
   direction                   = "Inbound"
@@ -40,7 +40,7 @@ resource "azurerm_network_security_rule" "ssh" {
 }
 
 resource "azurerm_network_security_rule" "vnc" {
-  name                        = "https"
+  name                        = "vnc"
   priority                    = 120
   direction                   = "Inbound"
   access                      = "Allow"
@@ -54,7 +54,7 @@ resource "azurerm_network_security_rule" "vnc" {
 }
 
 resource "azurerm_network_security_rule" "novnc" {
-  name                        = "https"
+  name                        = "novnc"
   priority                    = 130
   direction                   = "Inbound"
   access                      = "Allow"
@@ -68,7 +68,7 @@ resource "azurerm_network_security_rule" "novnc" {
 }
 
 resource "azurerm_network_security_rule" "sunshine" {
-  name                        = "https"
+  name                        = "sunshine"
   priority                    = 150
   direction                   = "Inbound"
   access                      = "Allow"
@@ -82,7 +82,7 @@ resource "azurerm_network_security_rule" "sunshine" {
 }
 
 resource "azurerm_network_security_rule" "sunshine-tcp" {
-  name                        = "https"
+  name                        = "sunshine-tcp"
   priority                    = 140
   direction                   = "Inbound"
   access                      = "Allow"
@@ -96,7 +96,7 @@ resource "azurerm_network_security_rule" "sunshine-tcp" {
 }
 
 resource "azurerm_network_security_rule" "sunshine-udp" {
-  name                        = "https"
+  name                        = "sunshine-udp"
   priority                    = 150
   direction                   = "Inbound"
   access                      = "Allow"
@@ -110,7 +110,7 @@ resource "azurerm_network_security_rule" "sunshine-udp" {
 }
 
 resource "azurerm_network_security_rule" "rdp" {
-  name                        = "https"
+  name                        = "rdp"
   priority                    = 160
   direction                   = "Inbound"
   access                      = "Allow"
