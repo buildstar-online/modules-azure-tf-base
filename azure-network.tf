@@ -69,7 +69,7 @@ resource "azurerm_network_security_rule" "novnc" {
 
 resource "azurerm_network_security_rule" "sunshine" {
   name                        = "sunshine"
-  priority                    = 150
+  priority                    = 140
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "*"
@@ -83,7 +83,7 @@ resource "azurerm_network_security_rule" "sunshine" {
 
 resource "azurerm_network_security_rule" "sunshine-tcp" {
   name                        = "sunshine-tcp"
-  priority                    = 140
+  priority                    = 150
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
@@ -97,7 +97,7 @@ resource "azurerm_network_security_rule" "sunshine-tcp" {
 
 resource "azurerm_network_security_rule" "sunshine-udp" {
   name                        = "sunshine-udp"
-  priority                    = 150
+  priority                    = 160
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Udp"
@@ -111,7 +111,7 @@ resource "azurerm_network_security_rule" "sunshine-udp" {
 
 resource "azurerm_network_security_rule" "rdp" {
   name                        = "rdp"
-  priority                    = 160
+  priority                    = 170
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
